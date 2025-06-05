@@ -1,28 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="65f6a02c-0b9e-4c42-8efd-993edb5cd970" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/Aluora-base.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Aluora/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Aluora/core/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Aluora/core/extractor.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Aluora/models/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Aluora/models/bart_cnn.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Aluora/models/llm_base.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Aluora/models/simple_densenet.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Aluora/utils/general.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Aluora/weights/best_dense_model_weights.pth" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Aluora/weights/denseModel_modified.bin" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Aluora/weights/denseModel_original.bin" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Aluora/weights/model_dropout_densenet.pth" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/setup.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
+    <list default="true" id="65f6a02c-0b9e-4c42-8efd-993edb5cd970" name="Changes" comment="Aluora second version, download model from hf">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/setup.py" beforeDir="false" afterPath="$PROJECT_DIR$/setup.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,6 +16,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "Pedro-Sarmiento"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/Pedro-Sarmiento/Aluora",
+    "accountId": "6f2259bc-c0ed-40b3-bd39-9cd5cb6c8239"
+  }
+}]]></component>
   <component name="ProjectColorInfo"><![CDATA[{
   "associatedIndex": 7
 }]]></component>
@@ -47,7 +43,9 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "master",
     "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "vue.rearranger.settings.migration": "true"
   }
@@ -68,8 +66,25 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1749089420822</updated>
-      <workItem from="1749089421865" duration="433000" />
+      <workItem from="1749089421865" duration="4100000" />
     </task>
+    <task id="LOCAL-00001" summary="Aluora first version">
+      <option name="closed" value="true" />
+      <created>1749090072818</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1749090072818</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Aluora second version, download model from hf">
+      <option name="closed" value="true" />
+      <created>1749092077535</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1749092077535</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -92,7 +107,12 @@
       </map>
     </option>
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Aluora first version" />
+    <MESSAGE value="Aluora second version, download model from hf" />
+    <option name="LAST_COMMIT_MESSAGE" value="Aluora second version, download model from hf" />
+  </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Aluora_base$test.coverage" NAME="test Coverage Results" MODIFIED="1749089518360" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Aluora_base$test.coverage" NAME="test Coverage Results" MODIFIED="1749092000314" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

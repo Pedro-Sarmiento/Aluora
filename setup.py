@@ -3,7 +3,7 @@ from setuptools import find_packages, setup
 
 HERE = pathlib.Path(__file__).parent
 
-VERSION = '0.0.1' #Muy importante, deberéis ir cambiando la versión de vuestra librería según incluyáis nuevas funcionalidades
+VERSION = '1.0.3' #Muy importante, deberéis ir cambiando la versión de vuestra librería según incluyáis nuevas funcionalidades
 PACKAGE_NAME = 'Aluora' #Debe coincidir con el nombre de la carpeta
 AUTHOR = 'Pedro Sarmiento' #Modificar con vuestros datos
 AUTHOR_EMAIL = 'pedro.sarmiento102@alu.ulpgc.es' #Modificar con vuestros datos
