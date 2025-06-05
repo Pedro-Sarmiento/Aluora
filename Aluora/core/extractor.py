@@ -8,6 +8,9 @@ import numpy as np
 import torch.nn.functional as F
 from Aluora.models.simple_densenet import DropoutDenseNet
 import json
+import os
+import requests
+from huggingface_hub import hf_hub_download
 
 hf_logging.set_verbosity_error()
 
@@ -20,14 +23,12 @@ def hallucination_metrics(context: str, question: str, answer: str, output_json_
         "MDVTP": True,
         "MMDVP": True
     }
-    model_path = "Aluora/weights/model_dropout_densenet.pth"
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
     features = model.extractFeatures(context, question, answer, features_to_extract)
 
     prob_class_1, predicted_class, mutual_info = halludetect_hallucination_risk(
         features_dict=features,
-        model_path=model_path,
         input_dim=4,
         hidden_dim=512,
         device=device,
@@ -39,18 +40,18 @@ def hallucination_metrics(context: str, question: str, answer: str, output_json_
 
     resultados = {
         "halludetect": {
-            "clase_predicha": predicted_class,
-            "etiqueta": "🤖 Alucinación" if predicted_class == 0 else "✅ No Alucinación",
-            "probabilidad_clase_1": round(prob_class_1, 4),
-            "informacion_mutua": round(mutual_info, 4)
+            "predicted-class": predicted_class,
+            "label": "🤖 Alucinación" if predicted_class == 0 else "✅ No Alucinación",
+            "probability_class_1": round(prob_class_1, 4),
+            "mutual-information": round(mutual_info, 4)
         },
         "hhem": {
-            "prob_no_alucinacion": round(score_hhem, 4),
-            "nivel_riesgo": calcular_nivel_riesgo(1 - score_hhem)
+            "prob_no_hallucination": round(score_hhem, 4),
+            "risk-level": calcular_nivel_riesgo(1 - score_hhem)
         },
         "lettuce": {
-            "fragmentos_detectados": lettuce_spans_output,
-            "riesgo_estimado": calcular_nivel_riesgo_lettuce(lettuce_spans_output)
+            "detected-spans": lettuce_spans_output,
+            "estimated-risk": calcular_nivel_riesgo_lettuce(lettuce_spans_output)
         }
     }
 
@@ -62,7 +63,7 @@ def hallucination_metrics(context: str, question: str, answer: str, output_json_
 
     return resultados
 
-def halludetect_hallucination_risk(features_dict: dict, model_path: str, input_dim: int,
+def halludetect_hallucination_risk(features_dict: dict, input_dim: int,
                                     hidden_dim: int, output_dim: int = 2, dropout_prob: float = 0.3,
                                     device='cpu'):
     ordered_keys = sorted(features_dict.keys())
@@ -73,6 +74,10 @@ def halludetect_hallucination_risk(features_dict: dict, model_path: str, input_d
         raise ValueError(f"Dimensión de entrada incorrecta: esperada {input_dim}, obtenida {input_tensor.shape[1]}")
 
     model_instance = DropoutDenseNet(input_dim, hidden_dim, output_dim, dropout_prob)
+    model_path = hf_hub_download(
+        repo_id="PedroooSaarm/HD-Dropout-Dense-Net",
+        filename="model_dropout_densenet.pth"
+    )
     model_instance.load_state_dict(torch.load(model_path, map_location=device))
     model_instance.to(device)
     model_instance.train()
@@ -126,7 +131,7 @@ def calcular_nivel_riesgo(score):
 
 def calcular_nivel_riesgo_lettuce(fragmentos):
     if not fragmentos:
-        return "❓ DESCONOCIDO"
+        return "🟢 No alucinación"
     max_conf = max([f["confidence"] for f in fragmentos])
     if max_conf >= 0.95:
         return "🚨 ALTO"
@@ -139,17 +144,17 @@ def imprimir_resultados(resultados):
     print("\n📊 \033[1mEvaluación de Aluora\033[0m\n")
 
     print("\033[1m🧠 HalluDetect:\033[0m")
-    print(f"  → Clase predicha: {resultados['halludetect']['clase_predicha']} ({resultados['halludetect']['etiqueta']})")
-    print(f"  → Probabilidad clase 1: {resultados['halludetect']['probabilidad_clase_1']}")
-    print(f"  → Información mutua: {resultados['halludetect']['informacion_mutua']}\n")
+    print(f"  → Clase predicha: {resultados['halludetect']['predicted-class']} ({resultados['halludetect']['label']})")
+    print(f"  → Probabilidad clase 1: {resultados['halludetect']['probability_class_1']}")
+    print(f"  → Información mutua: {resultados['halludetect']['mutual-information']}\n")
 
     print("\033[1m📐 HHEM:\033[0m")
-    print(f"  → Probabilidad de no alucinación: {resultados['hhem']['prob_no_alucinacion']}")
-    print(f"  → Nivel de riesgo: {resultados['hhem']['nivel_riesgo']}\n")
+    print(f"  → Probabilidad de no alucinación: {resultados['hhem']['prob_no_hallucination']}")
+    print(f"  → Nivel de riesgo: {resultados['hhem']['risk-level']}\n")
 
     print("\033[1m🥬 Lettuce Detect:\033[0m")
-    for i, frag in enumerate(resultados['lettuce']['fragmentos_detectados'], 1):
+    for i, frag in enumerate(resultados['lettuce']['detected-spans'], 1):
         print(f"  → Fragmento alucinado{i}: '{frag['text']}' (confianza: {frag['confidence']:.4f})")
-    print(f"  → Riesgo estimado: {resultados['lettuce']['riesgo_estimado']}\n")
+    print(f"  → Riesgo estimado: {resultados['lettuce']['estimated-risk']}\n")
 
     print("\033[1m✅ Evaluación completada.\033[0m\n")
