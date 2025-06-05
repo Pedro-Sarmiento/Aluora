@@ -1,0 +1,13 @@
+torch>=1.13.0
+transformers>=4.38.0
+scipy>=1.10.0
+numpy>=1.23.0
+lettucedetect>=0.1.4
+
+sentencepiece>=0.1.95
+
+argparse; python_version<'3.10'
+
+scikit-learn>=1.2.0
+
+rich>=13.3.0
